@@ -44,10 +44,10 @@ const PatientDetailPanel: React.FC<Props> = ({ patient, onClose, t }) => {
           {/* Quick Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: 'Wait Time', value: Math.floor(patient.waitTimeSeconds / 60) + 'm', icon: Clock, color: 'text-blue-500' },
-              { label: 'Risk Score', value: patient.riskScore + '%', icon: ShieldAlert, color: patient.riskScore > 70 ? 'text-red-500' : 'text-green-500' },
-              { label: 'HR', value: patient.vitals.hr, icon: Heart, color: 'text-red-400' },
-              { label: 'Temp', value: patient.vitals.temp + '°', icon: Thermometer, color: 'text-orange-400' },
+              { label: t.patientDetail.waitTime, value: Math.floor(patient.waitTimeSeconds / 60) + 'm', icon: Clock, color: 'text-blue-500' },
+              { label: t.patientDetail.riskScore, value: patient.riskScore + '%', icon: ShieldAlert, color: patient.riskScore > 70 ? 'text-red-500' : 'text-green-500' },
+              { label: t.hr, value: patient.vitals.hr, icon: Heart, color: 'text-red-400' },
+              { label: t.temp, value: patient.vitals.temp + '°', icon: Thermometer, color: 'text-orange-400' },
             ].map((m, i) => (
               <div key={i} className="bg-gray-50/50 p-4 rounded-2xl border border-gray-100">
                 <m.icon className={`w-4 h-4 ${m.color} mb-2`} />
@@ -61,7 +61,7 @@ const PatientDetailPanel: React.FC<Props> = ({ patient, onClose, t }) => {
           <div className="space-y-4">
              <h3 className="text-sm font-black text-gray-400 uppercase tracking-[0.2em] flex items-center gap-2">
                 <Brain className="w-4 h-4 text-nhs-blue" />
-                SHAP Priority Justification
+                {t.patientDetail.shapTitle}
              </h3>
              <div className="h-64 bg-gray-50 rounded-3xl p-6">
                 <ResponsiveContainer width="100%" height="100%">
@@ -88,13 +88,13 @@ const PatientDetailPanel: React.FC<Props> = ({ patient, onClose, t }) => {
           {/* Detailed Stats */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
              <div className="space-y-4">
-                <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Patient Vitals</h3>
+                <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">{t.patientDetail.vitalsTitle}</h3>
                 <div className="space-y-3">
                    {Object.entries(patient.vitals).map(([key, val]) => {
                      if (key === 'history') return null;
                      return (
                         <div key={key} className="flex justify-between items-center py-2 border-b border-gray-50">
-                           <span className="text-xs font-bold text-gray-500 uppercase">{key}</span>
+                           <span className="text-xs font-bold text-gray-500 uppercase">{key.toUpperCase()}</span>
                            <span className="text-sm font-black text-gray-900">{String(val)}</span>
                         </div>
                      )
@@ -102,20 +102,20 @@ const PatientDetailPanel: React.FC<Props> = ({ patient, onClose, t }) => {
                 </div>
              </div>
              <div className="space-y-4">
-                <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Resource Status</h3>
+                <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">{t.patientDetail.resourceTitle}</h3>
                 <div className="bg-blue-50/50 p-6 rounded-3xl border border-blue-100 space-y-4">
                    <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white"><Gauge className="w-4 h-4"/></div>
                       <div>
-                         <div className="text-[10px] font-black text-blue-400 uppercase">Wait Time Forecast</div>
-                         <div className="text-sm font-bold text-blue-900">{patient.predictedWaitMinutes} mins ± 5m</div>
+                         <div className="text-[10px] font-black text-blue-400 uppercase">ETA</div>
+                         <div className="text-sm font-bold text-blue-900">{patient.predictedWaitMinutes} mins</div>
                       </div>
                    </div>
                    <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-nhs-blue rounded-lg flex items-center justify-center text-white"><User className="w-4 h-4"/></div>
                       <div>
-                         <div className="text-[10px] font-black text-nhs-blue uppercase">Assigned Staff</div>
-                         <div className="text-sm font-bold text-gray-900">{patient.assignedDoctor || 'Unassigned'}</div>
+                         <div className="text-[10px] font-black text-nhs-blue uppercase">Staff</div>
+                         <div className="text-sm font-bold text-gray-900">{patient.assignedDoctor || '...'}</div>
                       </div>
                    </div>
                 </div>
@@ -125,10 +125,10 @@ const PatientDetailPanel: React.FC<Props> = ({ patient, onClose, t }) => {
           {/* Actions */}
           <div className="pt-8 border-t border-gray-100 grid grid-cols-2 gap-4">
              <button className="py-4 bg-gray-900 text-white font-black rounded-2xl shadow-xl hover:bg-black transition-all">
-                Assign Physician
+                {t.patientDetail.assignPhysician}
              </button>
              <button className="py-4 border-2 border-gray-100 text-gray-900 font-black rounded-2xl hover:bg-gray-50 transition-all">
-                Update Priority
+                {t.patientDetail.updatePriority}
              </button>
           </div>
         </div>

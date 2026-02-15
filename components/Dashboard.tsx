@@ -77,9 +77,9 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
         <div>
           <h1 className="text-3xl font-archivo font-black text-gray-900 tracking-tight flex items-center gap-3">
             <LayoutDashboard className="w-8 h-8 text-nhs-blue" />
-            Clinical Operations Dashboard
+            {t.dashboard.header}
           </h1>
-          <p className="text-gray-500 font-medium mt-1">Real-time emergency unit telemetry • Moroccan CHU Pilot</p>
+          <p className="text-gray-500 font-medium mt-1">{t.dashboard.subHeader}</p>
         </div>
         
         <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
@@ -88,7 +88,7 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
             <input 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Patient ID or Name..." 
+              placeholder="..." 
               className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-nhs-blue outline-none transition-all"
             />
           </div>
@@ -97,17 +97,17 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
             onChange={(e) => setFilterPriority(e.target.value)}
             className="px-4 py-2.5 bg-white border border-gray-200 rounded-xl font-bold text-sm outline-none cursor-pointer"
           >
-            <option value="all">All Priorities</option>
-            <option value="P1">P1 Critical</option>
-            <option value="P2">P2 Urgent</option>
-            <option value="P3">P3 Standard</option>
+            <option value="all">All</option>
+            <option value="P1">P1</option>
+            <option value="P2">P2</option>
+            <option value="P3">P3</option>
           </select>
           <button 
             onClick={() => setIsModalOpen(true)}
             className="flex items-center gap-2 px-6 py-2.5 bg-nhs-blue text-white rounded-xl font-black shadow-lg shadow-nhs-blue/20 hover:scale-[1.02] active:scale-95 transition-all"
           >
             <PlusCircle className="w-5 h-5" />
-            Admission
+            {t.dashboard.admission}
           </button>
         </div>
       </div>
@@ -115,10 +115,10 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
       {/* 2. Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         {[
-          { label: 'Patients Waiting', value: stats.waiting, icon: Users, color: 'text-nhs-blue', trend: '+12%' },
-          { label: 'Critical Cases (P1/P2)', value: stats.critical, icon: Activity, color: 'text-emergency-red', alert: stats.critical > 0, trend: stats.critical > 2 ? '+High' : 'Stable' },
-          { label: 'Avg P3 Wait (min)', value: stats.avgWaitMins, icon: Clock, color: 'text-orange-500', trend: '-5m' },
-          { label: 'Staff Utilization', value: `${stats.staffLoad}%`, icon: Gauge, color: 'text-green-600', trend: 'Optimal' },
+          { label: t.dashboard.stats.waiting, value: stats.waiting, icon: Users, color: 'text-nhs-blue', trend: '+12%' },
+          { label: t.dashboard.stats.critical, value: stats.critical, icon: Activity, color: 'text-emergency-red', alert: stats.critical > 0, trend: stats.critical > 2 ? '+High' : 'Stable' },
+          { label: t.dashboard.stats.avgWait, value: stats.avgWaitMins, icon: Clock, color: 'text-orange-500', trend: '-5m' },
+          { label: t.dashboard.stats.utilization, value: `${stats.staffLoad}%`, icon: Gauge, color: 'text-green-600', trend: 'Optimal' },
         ].map((stat, i) => (
           <div key={i} className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow group">
             <div className="flex justify-between items-start mb-4">
@@ -142,7 +142,7 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
             <div className="px-8 py-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/30">
                <h3 className="text-lg font-black text-gray-900 flex items-center gap-2">
                  <Zap className="w-5 h-5 text-nhs-blue" />
-                 Active Triage Matrix
+                 {t.dashboard.activeMatrix}
                </h3>
                <div className="flex gap-2">
                  {['P1','P2','P3','P4','P5'].map(p => (
@@ -154,11 +154,11 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
               <table className="w-full text-left">
                 <thead>
                   <tr className="bg-gray-50/50">
-                    <th className="px-8 py-4 text-[11px] font-black text-gray-400 uppercase tracking-widest">ID / Name</th>
-                    <th className="px-8 py-4 text-[11px] font-black text-gray-400 uppercase tracking-widest">Priority</th>
-                    <th className="px-8 py-4 text-[11px] font-black text-gray-400 uppercase tracking-widest">Acuity Status</th>
-                    <th className="px-8 py-4 text-[11px] font-black text-gray-400 uppercase tracking-widest">Wait Time</th>
-                    <th className="px-8 py-4 text-[11px] font-black text-gray-400 uppercase tracking-widest">Risk</th>
+                    <th className="px-8 py-4 text-[11px] font-black text-gray-400 uppercase tracking-widest">ID / {t.patient_name}</th>
+                    <th className="px-8 py-4 text-[11px] font-black text-gray-400 uppercase tracking-widest">{t.queue.split(' ')[0]}</th>
+                    <th className="px-8 py-4 text-[11px] font-black text-gray-400 uppercase tracking-widest">{t.vitals}</th>
+                    <th className="px-8 py-4 text-[11px] font-black text-gray-400 uppercase tracking-widest">{t.patientDetail.waitTime}</th>
+                    <th className="px-8 py-4 text-[11px] font-black text-gray-400 uppercase tracking-widest">{t.patientDetail.riskScore}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
@@ -174,7 +174,7 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
                       </td>
                       <td className="px-8 py-5">
                         <div className={`inline-flex items-center px-3 py-1.5 rounded-xl font-black text-xs ${patient.priority === 'P1' ? 'bg-red-500 text-white animate-critical' : 'bg-gray-100 text-gray-600'}`}>
-                          {patient.priority} {patient.priority === 'P1' && 'CRITICAL'}
+                          {patient.priority}
                         </div>
                       </td>
                       <td className="px-8 py-5">
@@ -215,18 +215,8 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
           <div className="bg-white border border-gray-100 rounded-[32px] p-8 shadow-sm">
             <div className="flex justify-between items-center mb-8">
                <div>
-                  <h3 className="text-lg font-black text-gray-900">LSTM Arrival Forecast</h3>
-                  <p className="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">Next 24 Hours Prediction</p>
-               </div>
-               <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                     <div className="w-3 h-3 rounded-full bg-nhs-blue"></div>
-                     <span className="text-[10px] font-black text-gray-400">PREDICTED</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                     <div className="w-3 h-3 rounded-full bg-gray-200"></div>
-                     <span className="text-[10px] font-black text-gray-400">ACTUAL</span>
-                  </div>
+                  <h3 className="text-lg font-black text-gray-900">{t.dashboard.forecastTitle}</h3>
+                  <p className="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">{t.dashboard.forecastSub}</p>
                </div>
             </div>
             <div className="h-72">
@@ -258,13 +248,13 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
               <div className="relative z-10 space-y-6">
                  <div className="flex items-center gap-3">
                     <div className="p-2 bg-white/20 rounded-xl"><Brain className="w-6 h-6" /></div>
-                    <h3 className="text-xl font-bold">AI Copilot Insights</h3>
+                    <h3 className="text-xl font-bold">{t.dashboard.aiCopilot}</h3>
                  </div>
                  <div className="space-y-4">
                     {[
-                      { icon: AlertCircle, color: 'bg-red-500', title: 'Critical Trend', desc: 'Cluster of 4 respiratory cases in last 2h. Check for commonalities.' },
-                      { icon: UserCheck, color: 'bg-green-500', title: 'Optimization', desc: 'Dr. Hassan (Cardio) has lowest load. Recommended for PT-4782.' },
-                      { icon: Clock, color: 'bg-orange-500', title: 'Wait Alert', desc: 'P3 wait times exceeding threshold by 12%. Shift beds to triage.' },
+                      { icon: AlertCircle, color: 'bg-red-500', title: 'Critical Trend', desc: 'Cluster of 4 respiratory cases in last 2h.' },
+                      { icon: UserCheck, color: 'bg-green-500', title: 'Optimization', desc: 'Staff load optimization recommended.' },
+                      { icon: Clock, color: 'bg-orange-500', title: 'Wait Alert', desc: 'Wait times exceeding threshold.' },
                     ].map((insight, i) => (
                       <div key={i} className="bg-white/10 p-4 rounded-2xl border border-white/10 backdrop-blur-sm group hover:bg-white/20 transition-all cursor-pointer">
                         <div className="flex gap-4">
@@ -278,7 +268,7 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
                     ))}
                  </div>
                  <button className="w-full py-4 bg-white text-nhs-blue font-black rounded-2xl shadow-lg hover:bg-gray-50 transition-all">
-                    Generate Shift Report
+                    Generate Report
                  </button>
               </div>
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
@@ -287,7 +277,7 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
            <div className="bg-white border border-gray-100 p-8 rounded-[40px] shadow-sm">
               <h3 className="text-lg font-black text-gray-900 mb-6 flex items-center gap-2">
                  <Thermometer className="w-5 h-5 text-nhs-blue" />
-                 Unit Health Matrix
+                 {t.dashboard.unitHealth}
               </h3>
               <div className="space-y-6">
                  <div>
@@ -327,7 +317,7 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
         <div className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white w-full max-w-2xl rounded-[40px] shadow-3xl overflow-hidden animate-in zoom-in duration-300">
              <div className="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                <h2 className="text-3xl font-black text-gray-900 tracking-tight">Admission</h2>
+                <h2 className="text-3xl font-black text-gray-900 tracking-tight">{t.dashboard.admission}</h2>
                 <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-gray-100 rounded-full"><X/></button>
              </div>
              <form className="p-10 space-y-6" onSubmit={(e) => {
@@ -338,11 +328,11 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
              }}>
                 <div className="grid grid-cols-2 gap-6">
                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Full Name</label>
-                      <input name="name" required placeholder="A. El Mansouri" className="w-full p-4 rounded-2xl bg-gray-50 border border-gray-100 outline-none focus:ring-2 focus:ring-nhs-blue" />
+                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.patient_name}</label>
+                      <input name="name" required placeholder="..." className="w-full p-4 rounded-2xl bg-gray-50 border border-gray-100 outline-none focus:ring-2 focus:ring-nhs-blue" />
                    </div>
                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Age</label>
+                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.age}</label>
                       <input name="age" type="number" required placeholder="42" className="w-full p-4 rounded-2xl bg-gray-50 border border-gray-100 outline-none focus:ring-2 focus:ring-nhs-blue" />
                    </div>
                 </div>
@@ -350,15 +340,15 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
                 <div className="grid grid-cols-4 gap-4 bg-nhs-blue/5 p-6 rounded-3xl border border-nhs-blue/10">
                    {['hr','bp','spo2','temp'].map(v => (
                       <div key={v} className="space-y-1.5">
-                         <label className="text-[10px] font-black text-nhs-blue uppercase tracking-widest">{v}</label>
+                         <label className="text-[10px] font-black text-nhs-blue uppercase tracking-widest">{v.toUpperCase()}</label>
                          <input name={v} required placeholder="--" className="w-full p-3 rounded-xl bg-white border border-gray-100 text-sm font-bold" />
                       </div>
                    ))}
                 </div>
 
                 <div className="space-y-1.5">
-                   <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Clinical Complaint</label>
-                   <textarea name="symptoms" required rows={3} placeholder="Patient reports..." className="w-full p-4 rounded-2xl bg-gray-50 border border-gray-100 outline-none focus:ring-2 focus:ring-nhs-blue" />
+                   <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.symptoms}</label>
+                   <textarea name="symptoms" required rows={3} placeholder="..." className="w-full p-4 rounded-2xl bg-gray-50 border border-gray-100 outline-none focus:ring-2 focus:ring-nhs-blue" />
                 </div>
 
                 <button 
@@ -366,7 +356,7 @@ const Dashboard: React.FC<Props> = ({ patients, t, isAnalyzing, onAddPatient }) 
                   disabled={isAnalyzing}
                   className="w-full py-5 bg-nhs-blue text-white font-black rounded-2xl shadow-xl shadow-nhs-blue/30 flex items-center justify-center gap-3 disabled:opacity-50"
                 >
-                  {isAnalyzing ? <><Activity className="animate-spin" /> Analyzing Acuity...</> : 'Initiate Smart Triage'}
+                  {isAnalyzing ? <><Activity className="animate-spin" /> ...</> : t.submit}
                 </button>
              </form>
           </div>

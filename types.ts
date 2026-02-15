@@ -90,6 +90,31 @@ export interface TranslationSet {
   burnout_reduction: string;
   data_driven_title: string;
   data_driven_desc: string;
+  dashboard: {
+    header: string;
+    subHeader: string;
+    admission: string;
+    activeMatrix: string;
+    forecastTitle: string;
+    forecastSub: string;
+    aiCopilot: string;
+    unitHealth: string;
+    stats: {
+      waiting: string;
+      critical: string;
+      avgWait: string;
+      utilization: string;
+    };
+  };
+  patientDetail: {
+    waitTime: string;
+    riskScore: string;
+    shapTitle: string;
+    vitalsTitle: string;
+    resourceTitle: string;
+    assignPhysician: string;
+    updatePriority: string;
+  };
   auth: {
     signIn: string;
     signUp: string;

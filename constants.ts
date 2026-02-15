@@ -34,6 +34,31 @@ export const TRANSLATIONS: Record<Language, TranslationSet> = {
     burnout_reduction: '30% Staff Relief',
     data_driven_title: 'Trained on 40K+ MIMIC-IV Records',
     data_driven_desc: 'Leveraging XGBoost for classification and LSTM for flow forecasting.',
+    dashboard: {
+      header: 'Clinical Operations Dashboard',
+      subHeader: 'Real-time emergency unit telemetry • Moroccan CHU Pilot',
+      admission: 'Admission',
+      activeMatrix: 'Active Triage Matrix',
+      forecastTitle: 'LSTM Arrival Forecast',
+      forecastSub: 'Next 24 Hours Prediction',
+      aiCopilot: 'AI Copilot Insights',
+      unitHealth: 'Unit Health Matrix',
+      stats: {
+        waiting: 'Patients Waiting',
+        critical: 'Critical Cases',
+        avgWait: 'Avg Wait (min)',
+        utilization: 'Staff Utilization'
+      }
+    },
+    patientDetail: {
+      waitTime: 'Wait Time',
+      riskScore: 'Risk Score',
+      shapTitle: 'SHAP Priority Justification',
+      vitalsTitle: 'Patient Vitals',
+      resourceTitle: 'Resource Status',
+      assignPhysician: 'Assign Physician',
+      updatePriority: 'Update Priority'
+    },
     auth: {
       signIn: 'Sign In',
       signUp: 'Sign Up',
@@ -89,6 +114,31 @@ export const TRANSLATIONS: Record<Language, TranslationSet> = {
     burnout_reduction: '30% d’Efficacité Staff',
     data_driven_title: 'Basé sur 40K+ Dossiers MIMIC-IV',
     data_driven_desc: 'Utilisation de XGBoost pour le tri et LSTM pour la prévision.',
+    dashboard: {
+      header: 'Tableau des Opérations Cliniques',
+      subHeader: 'Télémétrie des urgences en temps réel • Pilote CHU Maroc',
+      admission: 'Admission',
+      activeMatrix: 'Matrice de Triage Active',
+      forecastTitle: 'Prévision d’Arrivées LSTM',
+      forecastSub: 'Prédiction sur les prochaines 24 heures',
+      aiCopilot: 'Aperçus Copilote IA',
+      unitHealth: 'Matrice de Santé de l’Unité',
+      stats: {
+        waiting: 'Patients en Attente',
+        critical: 'Cas Critiques',
+        avgWait: 'Attente Moy. (min)',
+        utilization: 'Utilisation du Staff'
+      }
+    },
+    patientDetail: {
+      waitTime: 'Temps d’Attente',
+      riskScore: 'Score de Risque',
+      shapTitle: 'Justification de Priorité SHAP',
+      vitalsTitle: 'Signes Vitaux du Patient',
+      resourceTitle: 'Statut des Ressources',
+      assignPhysician: 'Assigner Médecin',
+      updatePriority: 'Modifier Priorité'
+    },
     auth: {
       signIn: 'Se Connecter',
       signUp: "S'Inscrire",
@@ -144,6 +194,31 @@ export const TRANSLATIONS: Record<Language, TranslationSet> = {
     burnout_reduction: '30% تخفيف الضغط',
     data_driven_title: 'مدرب على 40 ألف سجل طبي',
     data_driven_desc: 'استخدام نماذج XGBoost و LSTM لتحسين الموارد.',
+    dashboard: {
+      header: 'لوحة العمليات السريرية',
+      subHeader: 'قياسات وحدة الطوارئ في الوقت الفعلي • مشروع CHU المغربي',
+      admission: 'استقبال',
+      activeMatrix: 'مصفوفة الفرز النشطة',
+      forecastTitle: 'توقعات الوصول LSTM',
+      forecastSub: 'توقعات الـ 24 ساعة القادمة',
+      aiCopilot: 'رؤى مساعد الذكاء الاصطناعي',
+      unitHealth: 'مصفوفة صحة الوحدة',
+      stats: {
+        waiting: 'المرضى المنتظرون',
+        critical: 'الحالات الحرجة',
+        avgWait: 'متوسط الانتظار (دقيقة)',
+        utilization: 'استخدام الموظفين'
+      }
+    },
+    patientDetail: {
+      waitTime: 'وقت الانتظار',
+      riskScore: 'درجة الخطورة',
+      shapTitle: 'تبرير الأولوية (SHAP)',
+      vitalsTitle: 'العلامات الحيوية للمريض',
+      resourceTitle: 'حالة الموارد',
+      assignPhysician: 'تعيين طبيب',
+      updatePriority: 'تحديث الأولوية'
+    },
     auth: {
       signIn: 'تسجيل الدخول',
       signUp: 'إنشاء حساب',
@@ -199,6 +274,31 @@ export const TRANSLATIONS: Record<Language, TranslationSet> = {
     burnout_reduction: '30% راحة للطبة',
     data_driven_title: 'مدرب على بزاف ديال الداتا',
     data_driven_desc: 'النماذج ديالنا كتحلل الداتا باش تعرف كل مريض شنو محتاج.',
+    dashboard: {
+      header: 'لوحة العمليات الطبية',
+      subHeader: 'مراقبة الطوارئ دقيقة بدقيقة • تجربة CHU المغربي',
+      admission: 'تسجيل مريض',
+      activeMatrix: 'جدول الترياج دابا',
+      forecastTitle: 'توقعات الوصول LSTM',
+      forecastSub: 'توقعات ديال 24 ساعة الجاية',
+      aiCopilot: 'نصائح الذكاء الاصطناعي',
+      unitHealth: 'حالة السبيطار دابا',
+      stats: {
+        waiting: 'المرضى لي كيتسناو',
+        critical: 'حالات واعرة',
+        avgWait: 'وقت الانتظار (دقيقة)',
+        utilization: 'خدمة الموظفين'
+      }
+    },
+    patientDetail: {
+      waitTime: 'وقت التسناية',
+      riskScore: 'نسبة الخطر',
+      shapTitle: 'علاش هاد الأولوية (SHAP)',
+      vitalsTitle: 'العلامات الحيوية ديال المريض',
+      resourceTitle: 'حالة الموارد',
+      assignPhysician: 'عطي الطبيب',
+      updatePriority: 'بدل الأولوية'
+    },
     auth: {
       signIn: 'دخل للحساب',
       signUp: 'قاد حساب جديد',
@@ -254,19 +354,44 @@ export const TRANSLATIONS: Record<Language, TranslationSet> = {
     burnout_reduction: '30% ⵏ ⵜⵉⴳⴳⵉⵜ',
     data_driven_title: 'ⵜⴰⴼⵉⵍⵜ ⵏ ⵜⵉⴳⴳⵉⵜⵉⵏ',
     data_driven_desc: 'ⴰⵎⵉⵏⵉⴳ ⵏⵏⵖ ⴰⵔ ⵉⵙⵙⵎⵔⴰⵙ ⵜⵉⴳⴳⵉⵜⵉⵏ ⵏ ⵓⵎⵓⴹⵉⵏ.',
+    dashboard: {
+      header: 'ⵜⴰⴼⵍⵡⵉⵜ ⵏ ⵜⵉⴳⴳⵉⵜⵉⵏ',
+      subHeader: 'ⴰⵙⵡⵓⴷⴷⵓ ⵏ ⵜⵓⴷⵔⵜ ⴳ ⵍⵎⵖⵔⵉⴱ • CHU',
+      admission: 'ⴰⵙⵙⴽⵛⵎ',
+      activeMatrix: 'ⵜⴰⴳⴰⵍⴰ ⵏ ⵜⵓⴷⵔⵜ',
+      forecastTitle: 'LSTM Forecast',
+      forecastSub: '24 ⵜⵉⵙⵔⴰⴳⵉⵏ',
+      aiCopilot: 'AI Copilot',
+      unitHealth: 'ⵜⴰⴼⵍⵡⵉⵜ ⵏ ⵜⵓⴷⵔⵜ',
+      stats: {
+        waiting: 'ⵉⵎⵓⴹⴰⵏ',
+        critical: 'ⵜⴰⵙⵙⴰⵙⵜ',
+        avgWait: 'ⵜⵉⵣⵉ',
+        utilization: 'ⵜⵉⴳⴳⵉⵜ'
+      }
+    },
+    patientDetail: {
+      waitTime: 'ⵜⵉⵣⵉ',
+      riskScore: 'ⵜⴰⵙⵙⴰⵙⵜ',
+      shapTitle: 'SHAP Justification',
+      vitalsTitle: 'ⵜⵉⵎⵉⵜⴰⵔ ⵏ ⵓⵎⵓⴹⵉⵏ',
+      resourceTitle: 'Resource Status',
+      assignPhysician: 'ⴰⵙⵙⴽⵛⵎ',
+      updatePriority: 'ⴱⴷⴷⴻⵍ'
+    },
     auth: {
-      signIn: 'ⴰⴽⵛⵛⵓⵎ',
+      signIn: 'ⴰⴽⵛⵛⵓّم',
       signUp: 'ⴰⵣⵎⵎⴻⵎ',
       signOut: 'ⴰⴼⵓⵖ',
       email: 'ⵉⵎⴰⵢⵍ',
-      password: 'ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ',
+      password: 'ⵜⴰⴳⵓⵔِي ⵏ ⵓⵣⵔⴰⵢ',
       fullName: 'ⵉⵙⵎ ⴰⵎⵢⴰⵏ',
       role: 'ⵜⴰⵙⵎⵉⴳⵍⵜ',
       hospital: 'ⴰⵙⴳⵏⴰⴼ',
       noAccount: "ⵓⵔ ⵖⵓⵔⴽ ⴰⵎⵉⴹⴰⵏ؟",
       haveAccount: 'ⵖⵓⵔⴽ ⴰⵎⵉⴹⴰَن؟',
       rememberMe: 'ⴽⵜⵉⵢⵉ',
-      forgotPassword: 'ⵜⵜⵓⵖ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ؟',
+      forgotPassword: 'ⵜⵜⵓⵖ ⵜⴰⴳⵓⵔِي ⵏ ⵓⵣⵔⴰⵢ؟',
     },
     saas: {
       pricing: 'ⵜⵉⴳⴳⵉⵜⵉⵏ',
