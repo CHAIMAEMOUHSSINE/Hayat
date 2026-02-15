@@ -12,11 +12,21 @@ export interface Patient {
     bp: string;
     spo2: number;
     temp: number;
+    history?: { hr: number; spo2: number; time: string }[];
   };
   symptoms: string;
   priority: PriorityLevel;
   arrival_time: string;
+  waitTimeSeconds: number;
+  assignedDoctor: string | null;
+  riskScore: number; // 0-100
+  predictedWaitMinutes: number;
+  shapValues: {
+    feature: string;
+    value: number;
+  }[];
   explanation?: string;
+  isHighRisk?: boolean;
 }
 
 export type Language = 'en' | 'fr' | 'ar' | 'dar' | 'ber';

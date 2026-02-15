@@ -37,10 +37,10 @@ const Navbar: React.FC<Props> = ({ lang, onLanguageChange, t, currentView, onVie
              </div>
              <div className="flex flex-col text-left">
                 <span className="text-2xl font-black text-gray-900 leading-none tracking-tight font-archivo uppercase">
-                  Hayat
+                  {t.title}
                 </span>
-                <span className="text-[10px] font-black text-nhs-blue uppercase tracking-[0.2em] mt-1">
-                  Moroccan Medical AI
+                <span className="text-[9px] font-bold text-nhs-blue uppercase tracking-tight mt-1 max-w-[200px] leading-tight">
+                  {t.tagline}
                 </span>
              </div>
           </button>
@@ -64,16 +64,16 @@ const Navbar: React.FC<Props> = ({ lang, onLanguageChange, t, currentView, onVie
               Dashboard
             </button>
             <button 
-              onClick={() => scrollTo('how-it-works')}
+              onClick={() => scrollTo('methodology')}
               className="px-4 py-2 rounded-xl text-sm font-bold text-gray-500 hover:text-gray-900"
             >
-              Technology
+              Methodology
             </button>
             <button 
-              onClick={() => scrollTo('contact')}
+              onClick={() => scrollTo('roadmap')}
               className="px-4 py-2 rounded-xl text-sm font-bold text-gray-500 hover:text-gray-900"
             >
-              Support
+              Roadmap
             </button>
           </nav>
 
@@ -81,7 +81,7 @@ const Navbar: React.FC<Props> = ({ lang, onLanguageChange, t, currentView, onVie
           <div className="flex items-center gap-4">
             <div className="hidden sm:flex items-center gap-2 text-nhs-green font-bold text-[10px] tracking-widest border border-green-500/20 px-3 py-1.5 rounded-full bg-green-500/5">
                <ShieldCheck className="w-3.5 h-3.5" />
-               PII SECURE
+               AES-256
             </div>
             <button 
               onClick={onOpenSearch}
