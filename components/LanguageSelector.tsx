@@ -14,7 +14,8 @@ const LanguageSelector: React.FC<Props> = ({ current, onLanguageChange }) => {
     { code: 'fr', label: 'Français' },
     { code: 'ar', label: 'العربية' },
     { code: 'dar', label: 'Darija' },
-    { code: 'ber', label: 'ⵜⴰⵎⴰⵣⵉⵖⵜ' },
+    // Fix: Updated 'ber' to 'tzm' to match the defined Language type
+    { code: 'tzm', label: 'ⵜⴰⵎⴰⵣⵉⵖⵜ' },
   ];
 
   return (

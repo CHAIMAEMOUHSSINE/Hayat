@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hayat - Smart Emergency Triage | AgoraAI Hackathon 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@700;900&family=Bebas+Neue&family=Archivo+Black&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@700;900&family=Bebas+Neue&family=Archivo+Black&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
     <style>
       :root {
         --nhs-blue: #005EB8;
@@ -19,12 +19,22 @@
         --p5-blue: #4FC3F7;
       }
       body {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Inter', 'Noto Sans Arabic', 'Noto Sans Tifinagh', sans-serif;
         background-color: #f8fafc;
         margin: 0;
         scroll-behavior: smooth;
         color: #0f172a;
+        transition: background-color 0.3s ease;
       }
+      
+      /* Specific font handling per script */
+      [lang="ar"], [lang="dar"] {
+        font-family: 'Noto Sans Arabic', sans-serif;
+      }
+      [lang="tzm"] {
+        font-family: 'Noto Sans Tifinagh', sans-serif;
+      }
+
       .font-mono { font-family: 'JetBrains Mono', monospace; }
       .font-playfair { font-family: 'Playfair Display', serif; }
       
@@ -32,6 +42,10 @@
       .text-nhs-blue { color: var(--nhs-blue); }
       .bg-emergency-red { background-color: var(--emergency-red); }
       .text-emergency-red { color: var(--emergency-red); }
+
+      /* RTL Layout mirroring utilities */
+      [dir="rtl"] .rtl-mirror { transform: scaleX(-1); }
+      [dir="rtl"] .rtl-flip-x { transform: rotate(180deg); }
 
       /* Zellige Pattern Utility */
       .bg-zellige {
@@ -48,12 +62,6 @@
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.3);
       }
-
-      .priority-p1 { background-color: var(--p1-red); color: white; }
-      .priority-p2 { background-color: var(--p2-orange); color: white; }
-      .priority-p3 { background-color: var(--p3-yellow); color: #1a1a1a; }
-      .priority-p4 { background-color: var(--p4-green); color: white; }
-      .priority-p5 { background-color: var(--p5-blue); color: white; }
 
       @keyframes pulse-critical {
         0%, 100% { box-shadow: 0 0 0 0 rgba(213, 40, 27, 0.4); }

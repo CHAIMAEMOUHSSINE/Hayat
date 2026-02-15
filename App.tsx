@@ -1,12 +1,17 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Language, Patient, TranslationSet, ViewState } from './types';
+import { Language, Patient, TranslationSet, ViewState, User } from './types';
 import { TRANSLATIONS } from './constants';
 import Navbar from './components/Navbar';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import SearchPanel from './components/SearchPanel';
+import AuthPages from './components/AuthPages';
+import BillingPage from './components/BillingPage';
+import AdminPanel from './components/AdminPanel';
+import ApiDocs from './components/ApiDocs';
 import { analyzePatientTriage } from './services/geminiService';
+import { getCurrentUser, logout } from './services/authService';
 
 const INITIAL_PATIENTS: Patient[] = [
   {
@@ -73,14 +78,22 @@ const INITIAL_PATIENTS: Patient[] = [
 ];
 
 const App: React.FC = () => {
-  const [lang, setLang] = useState<Language>('en');
+  const [lang, setLang] = useState<Language>(() => (localStorage.getItem('hayat_lang') as Language) || 'en');
   const [view, setView] = useState<ViewState>('landing');
+  const [user, setUser] = useState<User | null>(getCurrentUser());
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [patients, setPatients] = useState<Patient[]>(INITIAL_PATIENTS);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const t = useMemo(() => TRANSLATIONS[lang], [lang]);
   const isRTL = ['ar', 'dar'].includes(lang);
+
+  // Sync lang to document
+  useEffect(() => {
+    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+    localStorage.setItem('hayat_lang', lang);
+  }, [lang, isRTL]);
 
   // Simulation: Update wait times every second
   useEffect(() => {
@@ -93,38 +106,17 @@ const App: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Simulation: Randomly add/update patient data every 15 seconds
-  useEffect(() => {
-    const dashboardTimer = setInterval(() => {
-      if (view !== 'dashboard') return;
-      
-      // Occasionally fluctuate vitals for critical patients
-      setPatients(prev => prev.map(p => {
-        if (p.priority === 'P1' && Math.random() > 0.7) {
-          const newHR = p.vitals.hr + (Math.random() > 0.5 ? 2 : -2);
-          const newRisk = Math.min(100, Math.max(0, p.riskScore + (Math.random() > 0.5 ? 1 : -1)));
-          return {
-            ...p,
-            vitals: { ...p.vitals, hr: newHR },
-            riskScore: newRisk
-          };
-        }
-        return p;
-      }));
-    }, 15000);
-    return () => clearInterval(dashboardTimer);
-  }, [view]);
+  const handleAuthSuccess = (u: User) => {
+    setUser(u);
+    localStorage.setItem('hayat_user', JSON.stringify(u));
+    setView('dashboard');
+  };
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        setIsSearchOpen(true);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  const handleLogout = () => {
+    logout();
+    setUser(null);
+    setView('landing');
+  };
 
   const handlePatientAdd = async (newPatientData: any) => {
     setIsAnalyzing(true);
@@ -164,8 +156,21 @@ const App: React.FC = () => {
     }
   };
 
+  const renderView = () => {
+    switch(view) {
+      case 'landing': return <LandingPage t={t} onLaunch={() => user ? setView('dashboard') : setView('signin')} />;
+      case 'signin': return <AuthPages mode="signin" t={t} onViewChange={setView} onAuthSuccess={handleAuthSuccess} lang={lang} />;
+      case 'signup': return <AuthPages mode="signup" t={t} onViewChange={setView} onAuthSuccess={handleAuthSuccess} lang={lang} />;
+      case 'dashboard': return <Dashboard patients={patients} t={t} isAnalyzing={isAnalyzing} onAddPatient={handlePatientAdd} />;
+      case 'billing': return <BillingPage t={t} />;
+      case 'admin-panel': return user && (user.role === 'admin' || user.role === 'manager') ? <AdminPanel t={t} user={user} /> : <Dashboard patients={patients} t={t} isAnalyzing={isAnalyzing} onAddPatient={handlePatientAdd} />;
+      case 'api-docs': return <ApiDocs t={t} />;
+      default: return <LandingPage t={t} onLaunch={() => setView('dashboard')} />;
+    }
+  };
+
   return (
-    <div className={`min-h-screen ${isRTL ? 'rtl font-sans' : 'ltr font-sans'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className={`min-h-screen ${isRTL ? 'rtl' : 'ltr'}`}>
       <Navbar 
         lang={lang} 
         onLanguageChange={setLang} 
@@ -173,21 +178,14 @@ const App: React.FC = () => {
         currentView={view} 
         onViewChange={setView} 
         onOpenSearch={() => setIsSearchOpen(true)}
+        user={user}
+        onLogout={handleLogout}
       />
 
       {isSearchOpen && <SearchPanel onClose={() => setIsSearchOpen(false)} />}
 
-      <div className="pt-20">
-        {view === 'landing' ? (
-          <LandingPage t={t} onLaunch={() => setView('dashboard')} />
-        ) : (
-          <Dashboard 
-            patients={patients} 
-            t={t} 
-            isAnalyzing={isAnalyzing} 
-            onAddPatient={handlePatientAdd} 
-          />
-        )}
+      <div className={view === 'signin' || view === 'signup' ? '' : 'pt-20'}>
+        {renderView()}
       </div>
     </div>
   );

@@ -1,6 +1,33 @@
 
 export type PriorityLevel = 'P1' | 'P2' | 'P3' | 'P4' | 'P5';
-export type ViewState = 'landing' | 'dashboard' | 'about' | 'contact';
+export type UserRole = 'nurse' | 'doctor' | 'admin' | 'manager';
+
+export type ViewState = 
+  | 'landing' 
+  | 'dashboard' 
+  | 'signin' 
+  | 'signup' 
+  | 'billing' 
+  | 'admin-panel' 
+  | 'api-docs' 
+  | 'profile';
+
+export interface Hospital {
+  id: string;
+  name: string;
+  location: string;
+  departments: string[];
+}
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+  hospital: string;
+  specialty?: string;
+  avatar?: string;
+}
 
 export interface Patient {
   id: string;
@@ -29,7 +56,7 @@ export interface Patient {
   isHighRisk?: boolean;
 }
 
-export type Language = 'en' | 'fr' | 'ar' | 'dar' | 'ber';
+export type Language = 'en' | 'fr' | 'ar' | 'dar' | 'tzm';
 
 export interface TranslationSet {
   title: string;
@@ -63,4 +90,26 @@ export interface TranslationSet {
   burnout_reduction: string;
   data_driven_title: string;
   data_driven_desc: string;
+  auth: {
+    signIn: string;
+    signUp: string;
+    signOut: string;
+    email: string;
+    password: string;
+    fullName: string;
+    role: string;
+    hospital: string;
+    noAccount: string;
+    haveAccount: string;
+    rememberMe: string;
+    forgotPassword: string;
+  };
+  saas: {
+    pricing: string;
+    billing: string;
+    adminPanel: string;
+    apiDocs: string;
+    hospitalSwitcher: string;
+    upgradePlan: string;
+  };
 }
